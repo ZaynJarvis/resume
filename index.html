@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIU ZHIHENG's Resume</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+    .pdfobject-container {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="resume"></div>
+  <script src="./pdfobject.min.js"></script>
+  <script>PDFObject.embed("./resume.pdf", "#resume");</script>
+</body>
+</html>
