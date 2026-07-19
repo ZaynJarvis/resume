@@ -41,8 +41,12 @@ test("server-renders the public resume without editor chrome", async () => {
   const html = await response.text();
   assert.match(html, /<title>Folio — Resume Studio<\/title>/i);
   assert.match(html, /Export PDF/);
+  assert.match(html, />Edit</);
   assert.match(html, /Zhiheng Liu/);
+  assert.match(html, /Software Engineer III · AI &amp; Context Systems/);
+  assert.match(html, /OpenViking/);
   assert.doesNotMatch(html, /Resume editor|Shape the story|Duplicate version/);
+  assert.doesNotMatch(html, /Unlock the editor/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
@@ -102,6 +106,8 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(page, /window\.print\(\)/);
   assert.match(page, /Duplicate version/);
   assert.match(page, /Add impact bullet/);
+  assert.match(page, /scrollHeight \/ 1123/);
+  assert.doesNotMatch(page, /wantsEdit|searchParams\.has\("edit"\)/);
   assert.match(css, /@page\s*\{[\s\S]*size:\s*A4/i);
   assert.match(css, /@media\s+print/i);
   assert.match(css, /width:\s*210mm/i);

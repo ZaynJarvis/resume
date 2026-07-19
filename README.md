@@ -10,8 +10,9 @@ by a valid local draft when one exists in the current browser.
 
 ## Edit mode
 
-Open `/?edit`, enter the edit key, and the Worker will issue a short-lived,
-HttpOnly edit session. The key is stored as the Cloudflare Worker secret
+Click **Edit**, enter the edit key, and the Worker will issue a short-lived,
+HttpOnly edit session. Query parameters never open the editor automatically.
+The key is stored as the Cloudflare Worker secret
 `RESUME_EDIT_KEY`; it is never included in the client bundle.
 
 Editing is intentionally best-effort and device-local. Drafts are validated and

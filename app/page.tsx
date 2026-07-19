@@ -57,59 +57,64 @@ const newId = () =>
 
 const createDefaultResume = (): Resume => ({
   id: "current-swe",
-  label: "Current SWE",
+  label: "Context Engineering",
   person: {
     name: "Zhiheng Liu",
-    headline: "Software Engineer · Systems & AI",
-    location: "Singapore",
+    headline: "Software Engineer III · AI & Context Systems",
+    location: "Singapore PR",
     email: "zaynjarvis@gmail.com",
     phone: "+65 83099012",
-    links: "",
+    links: "https://zaynjarvis.com",
     profile:
-      "Software engineer building edge-cloud systems and LLM-based tools that improve audio-video experiences, system reliability, and engineering efficiency.",
+      "AI builder maintaining OpenViking, an open-source context database, and Zouk, an agent IM app, alongside other toy-to-production products. Founding engineer of the legal-tech KnowledgeDB project in 2019. Power user of Codex Pro, Claude Max 20x, and other AI tools.",
   },
   experience: [
     {
       id: "tiktok",
       company: "TikTok Pte. Ltd",
-      role: "Software Engineer · Multimedia Architecture",
+      role: "Software Engineer III · Context Engineering",
       location: "Singapore",
       dates: "Aug 2021 - Present",
       summary:
-        "Developed edge-cloud collaborative systems and LLM-based attribution solutions to optimize audio-video experiences and drive AI-powered efficiency improvements.",
+        "Building OpenViking, an open-source context database for agent memory and knowledge that works across agent harnesses; previously worked on TikTok VOD.",
       groups: [
         {
-          id: "edge-cloud",
-          title: "Edge-Cloud Collaboration Architecture",
+          id: "context-engineering",
+          title: "Context Engineering",
           bullets: [
-            "Led the Edge-Cloud Collaboration solution set, enabling bidirectional feature transmission and end-to-end video profile capabilities; improved active days by 0.037% and stay duration by 0.18%.",
-            "Engineered a strategy orchestration system for real-time client-side execution and built a multi-experiment platform to reduce metric dilution and accelerate validation.",
+            "Lead a Singapore team of three on OpenViking, an open-source project with 27K GitHub stars; secured Codex Pro credits from OpenAI for the project.",
+            "Building BYOC solutions for OpenViking and its context infrastructure.",
           ],
         },
         {
-          id: "llm-reasoning",
-          title: "LLM-Driven Alarm Reasoning",
+          id: "agent-development",
+          title: "Agent on Team Development Lifecycle",
           bullets: [
-            "Built an LLM-based fault attribution tool for automated alarm analysis and root-cause tracing through Eino and Fornax integration.",
-            "Deployed an LLM-powered experiment analysis workflow supporting 10+ daily report-generation requests.",
-            "Developed web tools for prompt testing and Mermaid diagram generation to support daily engineering workflows.",
+            "Built an agent-based fault-attribution system for automated alarm analysis and troubleshooting.",
+            "Improved development efficiency across the team.",
+          ],
+        },
+        {
+          id: "videoplay",
+          title: "VideoPlay Strategy Platform",
+          bullets: [
+            "Led the VideoPlay Collaboration solution set, enabling bidirectional device-cloud feature transmission and end-to-end video profiles in TikTok Feed; increased user active days by 0.037% and stay duration by 0.18%.",
+            "Architected a strategy orchestration system for real-time client-side rule execution and built a multi-experiment platform to reduce metric dilution and accelerate validation.",
           ],
         },
         {
           id: "systems",
           title: "Multimedia System Optimization",
           bullets: [
-            "Led storage optimization efforts, reducing per-video storage costs by 90% and saving over 500 PB in one quarter; improved server throughput 10x through pprof-guided optimization.",
-            "Developed P2P technology that reduced bandwidth costs by 0.05% in launched regions.",
-            "Implemented an Upload Mini-Edge system to reduce upload latency and enhanced scheduling with real-time statistics.",
+            "Led storage optimization efforts, reducing per-video storage costs by 90% and saving over 500 PB in one quarter; improved strategy-engine throughput by 10x.",
+            "Architected a distributed TikTok video upload system to reduce upload latency and improve scheduling with real-time statistics.",
           ],
         },
         {
           id: "leadership",
           title: "Leadership & Impact",
           bullets: [
-            "Mentored a junior engineer into a P2P project lead and an intern on an LLM-integration project; authored 10+ technical whitepapers with 2,000+ reads.",
-            "Collaborated across client, algorithm, and server teams to standardize edge-cloud architecture and launch four major solutions.",
+            "Mentored five junior engineers across multiple projects; authored 10+ technical articles with 3,000+ reads.",
           ],
         },
       ],
@@ -122,16 +127,17 @@ const createDefaultResume = (): Resume => ({
       degree: "B.Eng. in Electrical and Electronic Engineering",
       dates: "Aug 2017 - Jun 2021",
       details: [
-        "SM2 Scholarship",
-        "Dean's List 2018, 2019, 2021",
-        "Highest Distinction · GPA 4.92/5.00",
+        "Highest Distinction",
+        "GPA 4.92/5.00",
+        "Dean's List",
+        "Full Scholarship",
       ],
     },
   ],
   style: {
     accent: "#B94F37",
     bodySize: 10.5,
-    density: "balanced",
+    density: "tight",
   },
 });
 
@@ -266,18 +272,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const wantsEdit = new URLSearchParams(window.location.search).has("edit");
     fetch("/api/edit-session", { cache: "no-store" })
       .then((response) => (response.ok ? response.json() : { authorized: false }))
       .then((result: { authorized?: boolean }) => {
-        const authorized = result.authorized === true;
-        setEditAuthorized(authorized);
-        if (wantsEdit && authorized) setEditing(true);
-        if (wantsEdit && !authorized) setShowUnlock(true);
+        setEditAuthorized(result.authorized === true);
       })
-      .catch(() => {
-        if (wantsEdit) setShowUnlock(true);
-      });
+      .catch(() => setEditAuthorized(false));
   }, []);
 
   useEffect(() => {
@@ -296,7 +296,7 @@ export default function Home() {
   const measurePage = useCallback(() => {
     if (!previewContentRef.current) return;
     const used = Math.round(
-      (previewContentRef.current.scrollHeight / 1003) * 100,
+      (previewContentRef.current.scrollHeight / 1123) * 100,
     );
     setPageUse(used);
   }, []);
@@ -377,17 +377,19 @@ export default function Home() {
       });
     });
 
-  const clearEditQuery = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("edit");
-    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
-  };
-
   const closeUnlock = () => {
     setShowUnlock(false);
     setEditKey("");
     setUnlockState("idle");
-    clearEditQuery();
+  };
+
+  const openEditing = () => {
+    if (editAuthorized) {
+      setEditing(true);
+      return;
+    }
+    setShowUnlock(true);
+    setUnlockState("idle");
   };
 
   const unlockEditing = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -408,7 +410,6 @@ export default function Home() {
       setShowUnlock(false);
       setEditKey("");
       setUnlockState("idle");
-      clearEditQuery();
     } catch {
       setUnlockState("error");
     }
@@ -477,15 +478,13 @@ export default function Home() {
               </span>
             </>
           )}
-          {editAuthorized && (
-            <button
-              className="edit-mode-button"
-              type="button"
-              onClick={() => setEditing((current) => !current)}
-            >
-              {editing ? "Done editing" : "Edit resume"}
-            </button>
-          )}
+          <button
+            className="edit-mode-button"
+            type="button"
+            onClick={editing ? () => setEditing(false) : openEditing}
+          >
+            {editing ? "Done editing" : "Edit"}
+          </button>
           <button className="export-button" type="button" onClick={() => window.print()}>
             Export PDF
           </button>
