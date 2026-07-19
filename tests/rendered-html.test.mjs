@@ -114,6 +114,8 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(page, /accent: "#315B52"/);
   assert.match(page, /bodySize: 12/);
   assert.match(page, /bodySize}px/);
+  assert.match(page, /ZoukResumeChat/);
+  assert.match(page, /\.\/zouk-resume-chat/);
   assert.match(page, /density: "open"/);
   assert.doesNotMatch(page, /wantsEdit|searchParams\.has\("edit"\)/);
   assert.match(css, /@page\s*\{[\s\S]*size:\s*A4/i);
@@ -123,4 +125,16 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(layout, /og\.png/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   assert.match(deployment, /"run_worker_first":\s*false/);
+});
+
+test("connects the interactive resume to the configured Zouk channel", async () => {
+  const chat = await readFile(new URL("../app/zouk-resume-chat.tsx", import.meta.url), "utf8");
+
+  assert.match(chat, /https:\/\/zouk\.zaynjarvis\.com/);
+  assert.match(chat, /channel: "zayn"/);
+  assert.match(chat, /workspaceId: "zayn"/);
+  assert.match(chat, /embed-guest-session/);
+  assert.match(chat, /\/api\/messages/);
+  assert.match(chat, /new WebSocket/);
+  assert.match(chat, /Ask this résumé/);
 });

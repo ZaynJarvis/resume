@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ZoukResumeChat } from "./zouk-resume-chat";
 
 type BulletGroup = {
   id: string;
@@ -859,6 +860,7 @@ export default function Home() {
           </section>
         </div>
       )}
+      {!editing && <ZoukResumeChat accent={active.style.accent} />}
     </main>
   );
 }

@@ -931,6 +931,298 @@ details[open] .summary-icon {
   font-size: 12px;
 }
 
+.resume-chat {
+  --chat-accent: var(--accent);
+  position: relative;
+  z-index: 35;
+  color: var(--ink);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.resume-chat-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--chat-accent) 38%, var(--line));
+  border-radius: 999px;
+  padding: 10px 16px 10px 13px;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  box-shadow: 0 16px 44px rgba(45, 37, 27, 0.16);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(16px);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.resume-chat-launcher:hover {
+  transform: translateY(-2px);
+  border-color: var(--chat-accent);
+  box-shadow: 0 20px 52px rgba(45, 37, 27, 0.2);
+}
+
+.resume-chat-launcher svg,
+.resume-chat-composer svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.resume-chat-launcher svg {
+  color: var(--chat-accent);
+}
+
+.resume-chat-panel {
+  position: fixed;
+  top: 86px;
+  right: 24px;
+  bottom: 24px;
+  width: min(408px, calc(100vw - 48px));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--chat-accent) 22%, var(--line));
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  box-shadow: 0 34px 90px rgba(45, 37, 27, 0.24);
+  backdrop-filter: blur(24px);
+  animation: resumeChatEnter 180ms ease-out;
+}
+
+.resume-chat-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.resume-chat-kicker {
+  display: block;
+  color: var(--chat-accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.resume-chat-header h2 {
+  margin: 5px 0 0;
+  font: 700 26px/1 Georgia, serif;
+  letter-spacing: -0.035em;
+}
+
+.resume-chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resume-chat-header-actions > button {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background: #eee7dc;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.resume-chat-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+
+.resume-chat-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.resume-chat-status.is-connected {
+  color: #4e775b;
+}
+
+.resume-chat-status.is-connecting,
+.resume-chat-status.is-sending {
+  color: #9a6c2f;
+}
+
+.resume-chat-status.is-error {
+  color: #a44135;
+}
+
+.resume-chat-messages {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  padding: 20px;
+  scrollbar-color: var(--line) transparent;
+}
+
+.resume-chat-empty {
+  margin: auto;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.resume-chat-intro {
+  margin: auto 0;
+  padding: 26px 20px;
+  border: 1px solid var(--soft-line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 66%, transparent);
+}
+
+.resume-chat-intro > span {
+  color: var(--chat-accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.resume-chat-intro h3 {
+  max-width: 280px;
+  margin: 10px 0 10px;
+  font: 700 24px/1.08 Georgia, serif;
+  letter-spacing: -0.03em;
+}
+
+.resume-chat-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.resume-chat-message {
+  align-self: flex-start;
+  max-width: 88%;
+}
+
+.resume-chat-message > span {
+  display: block;
+  margin: 0 0 4px 3px;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+}
+
+.resume-chat-message > div {
+  border: 1px solid var(--soft-line);
+  border-radius: 5px 15px 15px;
+  padding: 10px 12px;
+  background: var(--panel);
+  font-size: 13px;
+  line-height: 1.48;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.resume-chat-message.is-mine {
+  align-self: flex-end;
+}
+
+.resume-chat-message.is-mine > div {
+  border-color: color-mix(in srgb, var(--chat-accent) 32%, var(--soft-line));
+  border-radius: 15px 5px 15px 15px;
+  background: color-mix(in srgb, var(--chat-accent) 11%, var(--paper));
+}
+
+.resume-chat-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px;
+  gap: 8px;
+  padding: 14px;
+  border-top: 1px solid var(--soft-line);
+  background: color-mix(in srgb, var(--paper) 91%, transparent);
+}
+
+.resume-chat-composer textarea {
+  width: 100%;
+  min-height: 42px;
+  max-height: 112px;
+  resize: none;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 11px 13px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.resume-chat-composer > button {
+  align-self: end;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background: var(--chat-accent);
+  color: white;
+}
+
+.resume-chat-composer > button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.resume-chat-error {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #a44135;
+  font-size: 10px;
+}
+
+.resume-chat-error button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@keyframes resumeChatEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(14px, 8px, 0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
 @media (max-width: 1180px) {
   .topbar {
     grid-template-columns: auto 1fr;
@@ -1007,6 +1299,23 @@ details[open] .summary-icon {
   .paper-stage {
     transform-origin: top left;
   }
+
+  .resume-chat-launcher {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .resume-chat-panel {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: min(72svh, 680px);
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 22px 22px 0 0;
+  }
 }
 
 @page {
@@ -1025,7 +1334,8 @@ details[open] .summary-icon {
   .topbar,
   .editor-pane,
   .preview-toolbar,
-  .unlock-backdrop {
+  .unlock-backdrop,
+  .resume-chat {
     display: none !important;
   }
 
