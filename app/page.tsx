@@ -464,7 +464,7 @@ export default function Home() {
 
   const pageStyle = {
     "--resume-accent": active.style.accent,
-    "--resume-body-size": `${active.style.bodySize}pt`,
+    "--resume-body-size": `${active.style.bodySize}px`,
     "--resume-gap":
       active.style.density === "tight"
         ? "12px"
