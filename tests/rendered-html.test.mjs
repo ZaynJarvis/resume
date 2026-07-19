@@ -122,6 +122,8 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(css, /@media\s+print/i);
   assert.match(css, /width:\s*210mm/i);
   assert.match(css, /min-height:\s*297mm/i);
+  assert.match(css, /@media\s*\(max-width:\s*900px\)[\s\S]*\.resume-page\s*\{[\s\S]*width:\s*100%/i);
+  assert.match(css, /@media\s*\(max-width:\s*680px\)[\s\S]*\.resume-section\s*\{[\s\S]*display:\s*block/i);
   assert.match(layout, /og\.png/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   assert.match(deployment, /"run_worker_first":\s*false/);
@@ -136,5 +138,5 @@ test("connects the interactive resume to the configured Zouk channel", async () 
   assert.match(chat, /embed-guest-session/);
   assert.match(chat, /\/api\/messages/);
   assert.match(chat, /new WebSocket/);
-  assert.match(chat, /Ask this résumé/);
+  assert.match(chat, /Ask About Zayn/);
 });

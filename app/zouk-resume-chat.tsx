@@ -285,20 +285,20 @@ export function ZoukResumeChat({ accent }: { accent: string }) {
           className="resume-chat-launcher"
           type="button"
           onClick={openChat}
-          aria-label="Chat with Zayn about this résumé"
+          aria-label="Ask About Zayn"
           aria-expanded="false"
         >
           <MessageIcon />
-          <span>Ask this résumé</span>
+          <span>Ask About Zayn</span>
         </button>
       )}
 
       {open && (
-        <aside className="resume-chat-panel" aria-label="Chat with Zayn about this résumé">
+        <aside className="resume-chat-panel" aria-label="Ask About Zayn">
           <header className="resume-chat-header">
             <div>
               <span className="resume-chat-kicker">Interactive résumé</span>
-              <h2>Ask Zayn</h2>
+              <h2>Ask About Zayn</h2>
             </div>
             <div className="resume-chat-header-actions">
               <span className={`resume-chat-status is-${status}`}>

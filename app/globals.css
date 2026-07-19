@@ -1242,6 +1242,11 @@ details[open] .summary-icon {
 }
 
 @media (max-width: 900px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   .topbar {
     position: relative;
     padding: 0 14px;
@@ -1271,6 +1276,141 @@ details[open] .summary-icon {
   .preview-toolbar {
     top: 0;
   }
+
+  .paper-stage,
+  .is-public .paper-stage {
+    width: 100%;
+    min-width: 0;
+    padding: 84px 18px 70px;
+  }
+
+  .resume-page {
+    width: 100%;
+    min-height: 0;
+  }
+
+  .resume-page-inner {
+    min-height: 0;
+    padding: clamp(42px, 7vw, 58px) clamp(34px, 7vw, 62px) clamp(48px, 8vw, 60px);
+  }
+}
+
+@media (max-width: 680px) {
+  .is-public .topbar {
+    inset: 0 0 auto;
+    width: 100%;
+    padding: 10px 12px;
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--canvas) 96%, transparent) 66%, transparent);
+  }
+
+  .is-public .paper-stage {
+    padding: 72px 12px 84px;
+  }
+
+  .resume-page-inner {
+    padding: 40px clamp(22px, 7vw, 42px) 58px;
+    font-size: max(14px, calc(var(--resume-body-size) + 2px));
+    line-height: 1.5;
+  }
+
+  .resume-header {
+    display: block;
+  }
+
+  .resume-header h2 {
+    font-size: 40px;
+  }
+
+  .resume-headline {
+    max-width: 430px;
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .resume-contact {
+    max-width: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 14px;
+    margin-top: 20px;
+    font-size: 10px;
+    text-align: left;
+  }
+
+  .resume-rule {
+    margin: 22px 0 28px;
+  }
+
+  .resume-section {
+    display: block;
+    margin-top: 32px;
+  }
+
+  .resume-section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    padding-top: 0;
+    font-size: 9px;
+  }
+
+  .resume-section-label::after {
+    content: "";
+    height: 1px;
+    flex: 1 1 auto;
+    background: color-mix(in srgb, var(--resume-accent) 26%, #d8d0c5);
+  }
+
+  .resume-role-heading h3,
+  .resume-education h3 {
+    font-size: 16px;
+  }
+
+  .resume-role-heading > div:first-child > span {
+    font-size: 9px;
+    line-height: 1.45;
+  }
+
+  .resume-role-meta,
+  .resume-education > span {
+    font-size: 8px;
+  }
+
+  .role-summary {
+    margin-top: 11px !important;
+  }
+
+  .resume-story {
+    margin-top: 18px;
+  }
+
+  .resume-story h4 {
+    margin-bottom: 7px;
+    font-size: 13px;
+  }
+
+  .resume-story ul {
+    gap: 5px;
+    padding-left: 19px;
+  }
+
+  .resume-chat-launcher {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .resume-chat-panel {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: min(76svh, 680px);
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 22px 22px 0 0;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1295,26 +1435,63 @@ details[open] .summary-icon {
   .full-width {
     grid-column: auto;
   }
+}
 
+@media (max-width: 480px) {
+  .is-public .paper-stage,
   .paper-stage {
-    transform-origin: top left;
+    padding: 64px 0 84px;
+  }
+
+  .resume-page {
+    box-shadow: none;
+  }
+
+  .resume-page-inner {
+    padding: 34px 20px 58px;
+  }
+
+  .resume-header h2 {
+    font-size: 36px;
+  }
+
+  .resume-role-heading,
+  .resume-education {
+    display: block;
+  }
+
+  .resume-role-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 9px;
+    margin-top: 7px;
+    text-align: left;
+  }
+
+  .resume-education > span {
+    display: block;
+    margin-top: 8px;
   }
 
   .resume-chat-launcher {
-    right: 14px;
-    bottom: 14px;
+    right: 12px;
+    bottom: 12px;
   }
 
-  .resume-chat-panel {
-    top: auto;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: min(72svh, 680px);
-    border-right: 0;
-    border-bottom: 0;
-    border-left: 0;
-    border-radius: 22px 22px 0 0;
+  .resume-chat-header {
+    padding: 18px 16px 14px;
+  }
+
+  .resume-chat-header h2 {
+    font-size: 23px;
+  }
+
+  .resume-chat-messages {
+    padding: 16px;
+  }
+
+  .resume-chat-composer {
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
   }
 }
 
