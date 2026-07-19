@@ -229,6 +229,18 @@ function isStoredResumeCollection(value: unknown): value is {
   );
 }
 
+function isLegacyInitialResume(resume: Resume) {
+  return (
+    resume.id === "current-swe" &&
+    resume.label === "Current SWE" &&
+    resume.person.headline === "Software Engineer · Systems & AI" &&
+    resume.person.links === "" &&
+    resume.experience.length === 1 &&
+    resume.experience[0]?.role === "Software Engineer · Multimedia Architecture" &&
+    resume.experience[0]?.groups[0]?.id === "edge-cloud"
+  );
+}
+
 export default function Home() {
   const [versions, setVersions] = useState<Resume[]>([createDefaultResume()]);
   const [activeId, setActiveId] = useState("current-swe");
@@ -254,11 +266,16 @@ export default function Home() {
         if (stored) {
           const parsed: unknown = JSON.parse(stored);
           if (isStoredResumeCollection(parsed)) {
-            setVersions(parsed.versions);
+            const storedVersions =
+              parsed.versions.length === 1 &&
+              isLegacyInitialResume(parsed.versions[0])
+                ? [createDefaultResume()]
+                : parsed.versions;
+            setVersions(storedVersions);
             setActiveId(
-              parsed.versions.some((item) => item.id === parsed.activeId)
+              storedVersions.some((item) => item.id === parsed.activeId)
                 ? parsed.activeId
-                : parsed.versions[0].id,
+                : storedVersions[0].id,
             );
           }
         }
