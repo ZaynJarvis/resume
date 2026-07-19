@@ -49,7 +49,14 @@ type Resume = {
 };
 
 const STORAGE_KEY = "folio-resume-versions-v1";
-const INITIAL_RESUME_REVISION = "2026-07-19-context-engineering";
+const INITIAL_RESUME_REVISION = "2026-07-20-open-green";
+const ACCENT_OPTIONS = [
+  { name: "Hermès orange", color: "#D6672F" },
+  { name: "Audemars Piguet green", color: "#315B52" },
+  { name: "Tiffany blue", color: "#2D7F83" },
+  { name: "Bordeaux", color: "#7A334A" },
+  { name: "Midnight ink", color: "#334B6B" },
+] as const;
 
 const newId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -136,9 +143,9 @@ const createDefaultResume = (): Resume => ({
     },
   ],
   style: {
-    accent: "#B94F37",
+    accent: "#315B52",
     bodySize: 10.5,
-    density: "tight",
+    density: "open",
   },
 });
 
@@ -683,15 +690,17 @@ export default function Home() {
               <fieldset>
                 <legend>Accent</legend>
                 <div className="swatches">
-                  {["#B94F37", "#315B52", "#315D86", "#73526D"].map((color) => (
+                  {ACCENT_OPTIONS.map(({ name, color }) => (
                     <button
                       key={color}
                       type="button"
-                      aria-label={`Use accent ${color}`}
+                      aria-label={`Use ${name}`}
                       aria-pressed={active.style.accent === color}
-                      style={{ backgroundColor: color }}
                       onClick={() => updateActive((draft) => { draft.style.accent = color; })}
-                    />
+                    >
+                      <span className="swatch-dot" style={{ backgroundColor: color }} aria-hidden="true" />
+                      <span>{name}</span>
+                    </button>
                   ))}
                 </div>
               </fieldset>

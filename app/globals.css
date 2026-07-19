@@ -8,7 +8,7 @@
   --muted: #756f66;
   --line: #d8cec0;
   --soft-line: #e7ded2;
-  --accent: #b94f37;
+  --accent: #315b52;
 }
 
 * {
@@ -549,22 +549,44 @@ details[open] .summary-icon {
   margin-bottom: 10px;
 }
 
-.swatches,
-.segmented-control {
-  display: flex;
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
 .swatches button {
-  width: 28px;
-  height: 28px;
-  border: 3px solid var(--panel);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.swatches button:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.swatches .swatch-dot {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--panel);
   border-radius: 50%;
   box-shadow: 0 0 0 1px var(--line);
 }
 
 .swatches button[aria-pressed="true"] {
-  box-shadow: 0 0 0 2px var(--ink);
+  border-color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  color: var(--ink);
 }
 
 .range-control {
@@ -586,6 +608,8 @@ details[open] .summary-icon {
 }
 
 .segmented-control {
+  display: flex;
+  gap: 8px;
   padding: 3px;
   border: 1px solid var(--line);
   border-radius: 10px;
