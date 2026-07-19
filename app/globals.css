@@ -257,9 +257,10 @@ summary:focus-visible {
   padding: 46px 40px 80px;
 }
 
-.is-public .resume-page,
-.is-public .resume-page-inner {
-  min-height: 0;
+@media (min-width: 901px) {
+  .is-public .paper-stage {
+    padding-bottom: 0;
+  }
 }
 
 .workspace {

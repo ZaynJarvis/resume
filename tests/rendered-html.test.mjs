@@ -124,7 +124,8 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(css, /min-height:\s*297mm/i);
   assert.match(css, /@media\s*\(max-width:\s*900px\)[\s\S]*\.resume-page\s*\{[\s\S]*width:\s*100%/i);
   assert.match(css, /@media\s*\(max-width:\s*680px\)[\s\S]*\.resume-section\s*\{[\s\S]*display:\s*block/i);
-  assert.match(css, /\.is-public \.resume-page,[\s\S]*\.is-public \.resume-page-inner\s*\{[\s\S]*min-height:\s*0/i);
+  assert.match(css, /@media\s*\(min-width:\s*901px\)[\s\S]*\.is-public \.paper-stage\s*\{[\s\S]*padding-bottom:\s*0/i);
+  assert.match(css, /\.resume-page\s*\{[\s\S]*min-height:\s*1123px/i);
   assert.match(css, /@media\s*\(max-width:\s*680px\)[\s\S]*\.is-public \.topbar\s*\{[\s\S]*display:\s*none/i);
   assert.match(layout, /og\.png/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
