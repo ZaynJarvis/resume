@@ -257,6 +257,11 @@ summary:focus-visible {
   padding: 46px 40px 80px;
 }
 
+.is-public .resume-page,
+.is-public .resume-page-inner {
+  min-height: 0;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(430px, 510px) minmax(720px, 1fr);
@@ -1297,14 +1302,11 @@ details[open] .summary-icon {
 
 @media (max-width: 680px) {
   .is-public .topbar {
-    inset: 0 0 auto;
-    width: 100%;
-    padding: 10px 12px;
-    background: linear-gradient(to bottom, color-mix(in srgb, var(--canvas) 96%, transparent) 66%, transparent);
+    display: none;
   }
 
   .is-public .paper-stage {
-    padding: 72px 12px 84px;
+    padding: 12px 12px 84px;
   }
 
   .resume-page-inner {
@@ -1440,7 +1442,7 @@ details[open] .summary-icon {
 @media (max-width: 480px) {
   .is-public .paper-stage,
   .paper-stage {
-    padding: 64px 0 84px;
+    padding: 0 0 84px;
   }
 
   .resume-page {
@@ -1530,7 +1532,8 @@ details[open] .summary-icon {
     background: white;
   }
 
-  .resume-page {
+  .resume-page,
+  .is-public .resume-page {
     width: 210mm;
     min-height: 297mm;
     margin: 0;
@@ -1539,7 +1542,8 @@ details[open] .summary-icon {
     -webkit-print-color-adjust: exact;
   }
 
-  .resume-page-inner {
+  .resume-page-inner,
+  .is-public .resume-page-inner {
     min-height: 297mm;
     padding: 15.35mm 16.4mm 15.9mm;
   }
