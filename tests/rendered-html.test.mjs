@@ -107,7 +107,8 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(page, /Duplicate version/);
   assert.match(page, /Add impact bullet/);
   assert.match(page, /scrollHeight \/ 1123/);
-  assert.match(page, /isLegacyInitialResume/);
+  assert.match(page, /INITIAL_RESUME_REVISION/);
+  assert.match(page, /saved draft/);
   assert.doesNotMatch(page, /wantsEdit|searchParams\.has\("edit"\)/);
   assert.match(css, /@page\s*\{[\s\S]*size:\s*A4/i);
   assert.match(css, /@media\s+print/i);

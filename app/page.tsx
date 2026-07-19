@@ -49,6 +49,7 @@ type Resume = {
 };
 
 const STORAGE_KEY = "folio-resume-versions-v1";
+const INITIAL_RESUME_REVISION = "2026-07-19-context-engineering";
 
 const newId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -218,26 +219,21 @@ function isStoredResume(value: unknown): value is Resume {
 function isStoredResumeCollection(value: unknown): value is {
   versions: Resume[];
   activeId: string;
+  seedRevision?: string;
 } {
   if (!value || typeof value !== "object") return false;
-  const collection = value as { versions?: unknown; activeId?: unknown };
+  const collection = value as {
+    versions?: unknown;
+    activeId?: unknown;
+    seedRevision?: unknown;
+  };
   return (
     Array.isArray(collection.versions) &&
     collection.versions.length > 0 &&
     collection.versions.every(isStoredResume) &&
-    typeof collection.activeId === "string"
-  );
-}
-
-function isLegacyInitialResume(resume: Resume) {
-  return (
-    resume.id === "current-swe" &&
-    resume.label === "Current SWE" &&
-    resume.person.headline === "Software Engineer · Systems & AI" &&
-    resume.person.links === "" &&
-    resume.experience.length === 1 &&
-    resume.experience[0]?.role === "Software Engineer · Multimedia Architecture" &&
-    resume.experience[0]?.groups[0]?.id === "edge-cloud"
+    typeof collection.activeId === "string" &&
+    (collection.seedRevision === undefined ||
+      typeof collection.seedRevision === "string")
   );
 }
 
@@ -266,15 +262,26 @@ export default function Home() {
         if (stored) {
           const parsed: unknown = JSON.parse(stored);
           if (isStoredResumeCollection(parsed)) {
-            const storedVersions =
-              parsed.versions.length === 1 &&
-              isLegacyInitialResume(parsed.versions[0])
-                ? [createDefaultResume()]
-                : parsed.versions;
+            let storedVersions = parsed.versions;
+            let storedActiveId = parsed.activeId;
+            if (parsed.seedRevision !== INITIAL_RESUME_REVISION) {
+              const initial = createDefaultResume();
+              const preservedDrafts = parsed.versions.map((version) =>
+                version.id === initial.id
+                  ? {
+                      ...structuredClone(version),
+                      id: newId(),
+                      label: `${version.label} (saved draft)`,
+                    }
+                  : version,
+              );
+              storedVersions = [initial, ...preservedDrafts];
+              storedActiveId = initial.id;
+            }
             setVersions(storedVersions);
             setActiveId(
-              storedVersions.some((item) => item.id === parsed.activeId)
-                ? parsed.activeId
+              storedVersions.some((item) => item.id === storedActiveId)
+                ? storedActiveId
                 : storedVersions[0].id,
             );
           }
@@ -301,7 +308,14 @@ export default function Home() {
     if (!hydrated) return;
     const frame = requestAnimationFrame(() => setSaveState("saving"));
     const timer = window.setTimeout(() => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ versions, activeId }));
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          versions,
+          activeId,
+          seedRevision: INITIAL_RESUME_REVISION,
+        }),
+      );
       setSaveState("saved");
     }, 350);
     return () => {
