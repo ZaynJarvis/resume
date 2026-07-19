@@ -49,7 +49,7 @@ type Resume = {
 };
 
 const STORAGE_KEY = "folio-resume-versions-v1";
-const INITIAL_RESUME_REVISION = "2026-07-20-open-green";
+const INITIAL_RESUME_REVISION = "2026-07-20-open-green-12pt";
 const ACCENT_OPTIONS = [
   { name: "Hermès orange", color: "#D6672F" },
   { name: "Audemars Piguet green", color: "#315B52" },
@@ -144,7 +144,7 @@ const createDefaultResume = (): Resume => ({
   ],
   style: {
     accent: "#315B52",
-    bodySize: 10.5,
+    bodySize: 12,
     density: "open",
   },
 });
@@ -464,7 +464,7 @@ export default function Home() {
 
   const pageStyle = {
     "--resume-accent": active.style.accent,
-    "--resume-body-size": `${active.style.bodySize}px`,
+    "--resume-body-size": `${active.style.bodySize}pt`,
     "--resume-gap":
       active.style.density === "tight"
         ? "12px"

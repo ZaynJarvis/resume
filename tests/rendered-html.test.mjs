@@ -112,6 +112,8 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(page, /Audemars Piguet green/);
   assert.match(page, /Tiffany blue/);
   assert.match(page, /accent: "#315B52"/);
+  assert.match(page, /bodySize: 12/);
+  assert.match(page, /bodySize}pt/);
   assert.match(page, /density: "open"/);
   assert.doesNotMatch(page, /wantsEdit|searchParams\.has\("edit"\)/);
   assert.match(css, /@page\s*\{[\s\S]*size:\s*A4/i);
