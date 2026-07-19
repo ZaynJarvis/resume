@@ -90,11 +90,12 @@ test("edit sessions require the Worker secret and use an HttpOnly cookie", async
 });
 
 test("keeps editing local and includes A4 print rules", async () => {
-  const [page, css, layout, packageJson] = await Promise.all([
+  const [page, css, layout, packageJson, deployment] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../wrangler.deploy.jsonc", import.meta.url), "utf8"),
   ]);
 
   assert.match(page, /localStorage\.setItem/);
@@ -107,4 +108,5 @@ test("keeps editing local and includes A4 print rules", async () => {
   assert.match(css, /min-height:\s*297mm/i);
   assert.match(layout, /og\.png/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
+  assert.match(deployment, /"run_worker_first":\s*false/);
 });
