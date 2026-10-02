@@ -45,6 +45,8 @@ test("server-renders the public resume without editor chrome", async () => {
   assert.match(html, /Zhiheng Liu/);
   assert.match(html, /Software Engineer III · AI &amp; Context Systems/);
   assert.match(html, /OpenViking/);
+  assert.match(html, /VolcEngine/);
+  assert.doesNotMatch(html, /Ask About Zayn/);
   assert.doesNotMatch(html, /Resume editor|Shape the story|Duplicate version/);
   assert.doesNotMatch(html, /Unlock the editor/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);

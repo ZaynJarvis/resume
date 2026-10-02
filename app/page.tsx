@@ -4,6 +4,9 @@ import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ZoukResumeChat } from "./zouk-resume-chat";
 
+// The Zouk chat is not stable enough to show publicly; flip this back on once it is.
+const SHOW_RESUME_CHAT = false;
+
 type BulletGroup = {
   id: string;
   title: string;
@@ -871,7 +874,7 @@ export default function Home() {
           </section>
         </div>
       )}
-      {!editing && <ZoukResumeChat accent={active.style.accent} />}
+      {SHOW_RESUME_CHAT && !editing && <ZoukResumeChat accent={active.style.accent} />}
     </main>
   );
 }
