@@ -39,8 +39,19 @@ npm run deploy
 npx wrangler secret put RESUME_EDIT_KEY
 ```
 
-Cloudflare Workers Builds uses:
+GitHub Actions (`.github/workflows/deploy.yml`) builds, tests, and deploys every
+push to `master`. It can also be run manually from the Actions tab. Dependencies,
+including Wrangler, are installed from `package-lock.json`.
 
-- production branch: `master`
-- build command: `npm run build`
-- deploy command: `npx wrangler deploy --config wrangler.deploy.jsonc`
+One-time setup:
+
+1. Create a Cloudflare API token using the **Edit Cloudflare Workers** template,
+   restricted to the account in `wrangler.deploy.jsonc` and the `zaynjarvis.com`
+   zone (the deployment config includes a Custom Domain).
+2. Add it as the repository Actions secret `CLOUDFLARE_API_TOKEN`.
+3. Run **Deploy resume** from Actions, or re-run the failed setup run.
+
+No token belongs in Git. Existing Worker secrets (including `RESUME_EDIT_KEY`)
+remain on Cloudflare; `keep_vars` is enabled in the deployment config.
+
+Reference: https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/
