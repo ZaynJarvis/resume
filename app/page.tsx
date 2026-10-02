@@ -79,13 +79,13 @@ const createDefaultResume = (): Resume => ({
   },
   experience: [
     {
-      id: "tiktok",
-      company: "TikTok Pte. Ltd",
+      id: "volcengine",
+      company: "VolcEngine",
       role: "Software Engineer III · Context Engineering",
       location: "Singapore",
-      dates: "Aug 2021 - Present",
+      dates: "Nov 2025 - Present",
       summary:
-        "Building OpenViking, an open-source context database for agent memory and knowledge that works across agent harnesses; previously worked on TikTok VOD.",
+        "Building OpenViking, an open-source context database for agent memory and knowledge that works across agent harnesses.",
       groups: [
         {
           id: "context-engineering",
@@ -95,6 +95,17 @@ const createDefaultResume = (): Resume => ({
             "Building BYOC solutions for OpenViking and its context infrastructure.",
           ],
         },
+      ],
+    },
+    {
+      id: "tiktok",
+      company: "TikTok Pte. Ltd",
+      role: "Software Engineer III · VOD",
+      location: "Singapore",
+      dates: "Aug 2021 - Nov 2025",
+      summary:
+        "Worked on TikTok VOD: playback strategy, video storage, and upload systems.",
+      groups: [
         {
           id: "agent-development",
           title: "Agent on Team Development Lifecycle",
