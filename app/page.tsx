@@ -54,7 +54,7 @@ type Resume = {
 
 const STORAGE_KEY = "folio-resume-versions-v1";
 // Bump when the default resume changes so returning visitors see it and keep their saved drafts.
-const INITIAL_RESUME_REVISION = "2026-10-02-volcengine-tiktok";
+const INITIAL_RESUME_REVISION = "2026-10-02-openviking-stars";
 const ACCENT_OPTIONS = [
   { name: "Hermès orange", color: "#D6672F" },
   { name: "Audemars Piguet green", color: "#315B52" },
@@ -95,7 +95,7 @@ const createDefaultResume = (): Resume => ({
           id: "context-engineering",
           title: "Context Engineering",
           bullets: [
-            "Lead a Singapore team of three on OpenViking, an open-source project with 27K GitHub stars; secured Codex Pro credits from OpenAI for the project.",
+            "Lead a Singapore team of three on OpenViking, an open-source project with nearly 40K GitHub stars; secured Codex Pro credits from OpenAI for the project.",
             "Building BYOC solutions for OpenViking and its context infrastructure.",
           ],
         },
