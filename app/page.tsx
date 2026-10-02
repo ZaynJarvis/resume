@@ -53,7 +53,8 @@ type Resume = {
 };
 
 const STORAGE_KEY = "folio-resume-versions-v1";
-const INITIAL_RESUME_REVISION = "2026-07-20-open-green-12pt";
+// Bump when the default resume changes so returning visitors see it and keep their saved drafts.
+const INITIAL_RESUME_REVISION = "2026-10-02-volcengine-tiktok";
 const ACCENT_OPTIONS = [
   { name: "Hermès orange", color: "#D6672F" },
   { name: "Audemars Piguet green", color: "#315B52" },
