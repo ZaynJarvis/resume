@@ -39,7 +39,11 @@ test("server-renders the public resume without editor chrome", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Folio — Resume Studio<\/title>/i);
+  assert.match(html, /<title>Resume - Zhiheng Liu<\/title>/i);
+  assert.match(html, /<meta property="og:title" content="Resume - Zhiheng Liu"/);
+  assert.match(html, /<meta name="twitter:title" content="Resume - Zhiheng Liu"/);
+  assert.match(html, /<link rel="icon" href="\/icon\.svg\?[^" ]+" sizes="any" type="image\/svg\+xml"/);
+  assert.match(html, /<link rel="apple-touch-icon" href="\/apple-icon\.png\?[^" ]+" sizes="180x180" type="image\/png"/);
   assert.match(html, /Export PDF/);
   assert.match(html, />Edit</);
   assert.match(html, /Zhiheng Liu/);

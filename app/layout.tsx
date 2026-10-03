@@ -22,17 +22,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const socialImage = `${protocol}://${host}/og.png`;
 
   return {
-    title: "Folio — Resume Studio",
+    title: "Resume - Zhiheng Liu",
     description:
       "Shape, tailor, and export a polished resume from one private editing workspace.",
     openGraph: {
-      title: "Folio — Resume Studio",
+      title: "Resume - Zhiheng Liu",
       description: "Edit with focus. Export with confidence.",
       images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Folio — Resume Studio",
+      title: "Resume - Zhiheng Liu",
       description: "Edit with focus. Export with confidence.",
       images: [socialImage],
     },
